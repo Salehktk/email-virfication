@@ -18,6 +18,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('profile', function () {
-    // Only verified users may enter...
-})->middleware('verify');
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
+    Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+});
