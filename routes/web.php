@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes(['verify' => true]);
+
+Route::get('email/verify', 'EmailVerificationController@show')->name('verification.notice');
+Route::get('email/verify/{id}', 'EmailVerificationController@verify')->name('verification.verify');
+Route::get('email/resend', 'EmailVerificationController@resend')->name('verification.resend');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
